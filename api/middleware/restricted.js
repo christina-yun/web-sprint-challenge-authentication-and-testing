@@ -1,3 +1,6 @@
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const { JWT_SECRET } = require('./../secrets/secrets');
 module.exports = (req, res, next) => {
   next();
   /*

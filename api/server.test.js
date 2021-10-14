@@ -2,7 +2,7 @@ const server = require('./server');
 const request = require('supertest');
 const db = require('./../data/dbConfig');
 
-beforeAll(async() =>{
+beforeEach(async() =>{
   await db.migrate.rollback();
   await db.migrate.latest();
 })
@@ -18,14 +18,21 @@ test('sanity', () => {
 describe('[POST] /register', () => {
   let res
   beforeEach(async() => {
-    res = await request(server).post('/auth/register').send({ username: 'pincess_serenity', password: "fairies" })
+    res = await request(server).post('/api/auth/register').send({ username: 'pincess_serenity', password: "fairies" })
   })
 
-  it('responds with a 201 created', () => {
+  it('responds with a 201 created', async () => {
     expect(res.status).toBe(201)
   })
-  it.todo('causes a user to be added to the db')
-  it.todo('responds with newly created user')
+
+  it('causes a user to be added to the db', async () => {
+    const users = await db('users');
+    expect(users).toHaveLength(1)
+  })
+
+  it('responds with newly created user', async () => {
+    expect(res.body).toMatchSnapshot();
+  })
 })
 
 describe('[POST] /login', () => {

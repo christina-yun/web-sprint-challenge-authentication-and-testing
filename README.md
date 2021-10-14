@@ -53,6 +53,17 @@ Your finished project must include all of the following requirements (further in
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics.
 
 1. Differences between using _sessions_ or _JSON Web Tokens_ for authentication.
+
+A: JWT, unlike sessions are stored on the client stide, while sessions use the server memory to store user data. Sessions are not as scalable as JWT because if many users were to make requests all at once, it can strain the server. JWT are sent along with every request and contains all the user information in an encoded form, making it a bad candidate for putting in sensitive information. JWTs are stateless because the information is stored client-side and authentication can occur locally instead of per request, like with cookies. 
+
 2. What does `bcryptjs` do to help us store passwords in a secure manner?
+
+A: Bcryptjs hashes the passwords many times and sends that hashed version of a password as the saved piece of information. Since hashing only goes one way, it cannot be decoded, but it is unique and tied to the instance of the information being created. It is also considered very slow compared to other ciphering methods and the extra computation needed slows down brute force and dictionary attacks.
+
 3. How are unit tests different from integration and end-to-end testing?
+
+A: Unit tests are designed to test extremely small chunks of code to make sure they work. Unit tests are good for testing isolated code that doesn't require callbacks and making sure that small chunk is working as expected. Integration testing is to test to make sure different parts are working as expected in concert with each other, and end-to-end testing is testing an app from start to finish to make sure the entire user experience is captured.
+
 4. How does _Test Driven Development_ change the way we write applications and tests?
+
+A: In TDD, the idea is to understand and have outcomes for what code should do in mind before even writing it. You write the test to make sure that it computes as expected, and write the code to follow that rather than writing everything out and then testing that already-written code is passing tests created just for the purpose of testing it.

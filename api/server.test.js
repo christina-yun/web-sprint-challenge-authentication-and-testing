@@ -40,6 +40,10 @@ describe("[POST] /register", () => {
 describe("[POST] /login", () => {
   let res
   beforeEach(async() => {
+    await request(server)
+      .post('/api/auth/register')
+      .send({ username: "sailor_helios", password: "12345" })
+
     res = await request(server)
       .post('/api/auth/login')
       .send({ username: "sailor_helios", password: "12345" })
@@ -48,6 +52,10 @@ describe("[POST] /login", () => {
   it("responds with a status 200", async() => {
     expect(res.status).toBe(200)
   });
-  it.todo("has a message");
-  it.todo("has a token");
+  it("has a message", async() => {
+    expect(res.body.message).toBe('welcome, sailor_helios')
+  });
+  it("has a token", async() => {
+    expect(res.body.token).toBeDefined();
+  });
 });

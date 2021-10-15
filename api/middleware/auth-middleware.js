@@ -55,27 +55,27 @@ const hashThePW = (req, res, next) => {
 };
 
 const usernameValidForLogin = (req, res, next) => {
-    const { username } = req.body;
+  const { username } = req.body;
 
-    if(!username){
-        next({ status: 401, message: "username and password required" })
-    } else {
-        next();
-    }
-}
+  if (!username) {
+    next({ status: 401, message: "username and password required" });
+  } else {
+    next();
+  }
+};
 
 const checkPasswordCorrect = async (req, res, next) => {
-    let { username, password } = req.body;
-    const validUser = await Users.findBy({ username: username });
+  let { username, password } = req.body;
+  const validUser = await Users.findBy({ username: username });
 
-    if(validUser && bcrypt.compareSync(password, validUser.password)) {
-        const token = tokenBuilder(validUser);
-        req.token = token;
-        next();
-    } else {
-        next({ status: 401, message: 'invalid credentials'})
-    }
-}
+  if (validUser && bcrypt.compareSync(password, validUser.password)) {
+    const token = tokenBuilder(validUser);
+    req.token = token;
+    next();
+  } else {
+    next({ status: 401, message: "invalid credentials" });
+  }
+};
 
 module.exports = {
   checkUsernameExists,
@@ -83,5 +83,5 @@ module.exports = {
   validatePassword,
   hashThePW,
   usernameValidForLogin,
-  checkPasswordCorrect
+  checkPasswordCorrect,
 };

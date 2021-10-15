@@ -31,7 +31,7 @@ describe('[POST] /register', () => {
   })
 
   it('responds with newly created user', async () => {
-    expect(res.body).toMatchSnapshot();
+    expect(res.body).toMatchObject({ id: 1, username: 'pincess_serenity' });
   })
 })
 

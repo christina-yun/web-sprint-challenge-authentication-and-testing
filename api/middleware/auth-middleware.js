@@ -20,13 +20,13 @@ const validateUsername = async (req, res, next) =>{
 
     const duplicateUsername = await Users.findBy({ username: username })
 
-    if(duplicateUsername){
+    if(!username || username.trim().length < 1 ) {
+        next({ status: 401, message: 'username and password required'})
+    } else if(duplicateUsername){
         next({ 
             status: 422, 
             message: 'username taken'
         })
-    } else if(!username || username.trim().length < 1 ){
-        next({ status: 401, message: 'username and password required'})
     } else {
         const trimmedName = username.trim().toLowerCase();
         req.body.username = trimmedName;

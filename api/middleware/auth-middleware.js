@@ -23,7 +23,7 @@ const validateUsername = async (req, res, next) =>{
     if(duplicateUsername){
         next({ 
             status: 422, 
-            message: 'that username already exists'
+            message: 'username taken'
         })
     } else if(!username || username.trim().length < 1 ){
         next({ status: 401, message: 'username and password required'})

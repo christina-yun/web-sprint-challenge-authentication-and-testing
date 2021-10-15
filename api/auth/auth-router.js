@@ -36,7 +36,7 @@ router.post('/register', validateUsername, validatePassword, hashThePW, (req, re
 
 });
 
-router.post('/login', (req, res, next) => {
+router.post('/login', checkUsernameExists, (req, res, next) => {
   res.end('implement login, please!');
   /*
     IMPLEMENT

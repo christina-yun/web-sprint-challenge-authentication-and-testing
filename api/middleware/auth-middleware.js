@@ -73,7 +73,7 @@ const checkPasswordCorrect = async (req, res, next) => {
         req.token = token;
         next();
     } else {
-        next({ status: 401, message: 'username and password required'})
+        next({ status: 401, message: 'invalid credentials'})
     }
 }
 

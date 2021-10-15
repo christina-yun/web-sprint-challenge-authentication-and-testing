@@ -2,7 +2,7 @@ const Users = require('./../users/users-model');
 const { checkUsernameExists, validateUsername, validatePassword, hashThePW } = require('./../middleware/auth-middleware');
 const router = require('express').Router();
 
-router.post('/register', validateUsername, validatePassword, hashThePW, (req, res, next) => {
+router.post('/register', validatePassword, validateUsername,  hashThePW, (req, res, next) => {
   Users.add(req.body)
     .then(newUser => {
       res.status(201).json(newUser)

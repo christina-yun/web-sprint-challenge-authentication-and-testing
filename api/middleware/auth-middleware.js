@@ -54,6 +54,16 @@ const hashThePW = (req, res, next) => {
   next();
 };
 
+const usernameValidForLogin = (req, res, next) => {
+    const { username } = req.body;
+
+    if(!username){
+        next({ status: 401, message: "username and password required" })
+    } else {
+        next();
+    }
+}
+
 const checkPasswordCorrect = async (req, res, next) => {
     let { username, password } = req.body;
     const validUser = await Users.findBy({ username: username });
@@ -72,5 +82,6 @@ module.exports = {
   validateUsername,
   validatePassword,
   hashThePW,
+  usernameValidForLogin,
   checkPasswordCorrect
 };

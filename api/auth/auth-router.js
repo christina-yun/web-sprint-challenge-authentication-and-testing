@@ -1,5 +1,5 @@
 const Users = require('./../users/users-model');
-const { checkUsernameExists, validateUsername, validatePassword, hashThePW, checkPasswordCorrect } = require('./../middleware/auth-middleware');
+const { checkUsernameExists, validateUsername, validatePassword, hashThePW, usernameValidForLogin, checkPasswordCorrect } = require('./../middleware/auth-middleware');
 const router = require('express').Router();
 
 router.post('/register', validatePassword, validateUsername,  hashThePW, (req, res, next) => {
@@ -10,7 +10,7 @@ router.post('/register', validatePassword, validateUsername,  hashThePW, (req, r
     .catch(next)
 });
 
-router.post('/login', checkUsernameExists, validateUsername,validatePassword, checkPasswordCorrect, (req, res, next) => {
+router.post('/login', checkUsernameExists, usernameValidForLogin, checkPasswordCorrect, (req, res, next) => {
   try{
     res.status(200).json({
       message: `welcome, ${req.body.username}`,

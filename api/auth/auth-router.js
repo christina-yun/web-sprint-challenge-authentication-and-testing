@@ -10,7 +10,7 @@ router.post('/register', validatePassword, validateUsername,  hashThePW, (req, r
     .catch(next)
 });
 
-router.post('/login', checkUsernameExists,  checkPasswordCorrect, (req, res, next) => {
+router.post('/login', checkUsernameExists, validateUsername,validatePassword, checkPasswordCorrect, (req, res, next) => {
   try{
     res.status(200).json({
       message: `welcome, ${req.body.username}`,

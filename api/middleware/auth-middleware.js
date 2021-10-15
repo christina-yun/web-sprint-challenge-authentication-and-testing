@@ -15,23 +15,27 @@ const checkUsernameExists = async (req, res, next) => {
     }
 }
 
-const validateUsername = async (req, res, next) =>{
+const validateUsername = async (req, res, next) => {
     const username = req.body.username;
-
-    const duplicateUsername = await Users.findBy({ username: username })
 
     if(!username || username.trim().length < 1 ) {
         next({ status: 401, message: 'username and password required'})
-    } else if(duplicateUsername){
-        next({ 
-            status: 422, 
-            message: 'username taken'
-        })
     } else {
-        const trimmedName = username.trim().toLowerCase();
-        req.body.username = trimmedName;
-        next();
+        const duplicateUsername = await Users.findBy({ username: username })
+
+        if(duplicateUsername){
+            next({ 
+                status: 422, 
+                message: 'username taken'
+            })
+        } else {
+            const trimmedName = username.trim().toLowerCase();
+            req.body.username = trimmedName;
+            next();
+        }
     }
+    
+    
 }
 
 const validatePassword = (req, res, next) =>{
